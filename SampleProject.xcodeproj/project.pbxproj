@@ -18,6 +18,7 @@
 		5D42FE1B2A20DF3400B2F430 /* SampleProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FE1A2A20DF3400B2F430 /* SampleProjectUITestsLaunchTests.swift */; };
 		5D42FE302A20EA9200B2F430 /* SampleFeed.docc in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FE2F2A20EA9200B2F430 /* SampleFeed.docc */; };
 		5D42FE312A20EA9200B2F430 /* SampleFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D42FE2E2A20EA9200B2F430 /* SampleFeed.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D42FE362A20F2E900B2F430 /* RemoteFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FE352A20F2E900B2F430 /* RemoteFeedLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		5D42FE2C2A20EA9200B2F430 /* SampleFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SampleFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D42FE2E2A20EA9200B2F430 /* SampleFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleFeed.h; sourceTree = "<group>"; };
 		5D42FE2F2A20EA9200B2F430 /* SampleFeed.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SampleFeed.docc; sourceTree = "<group>"; };
+		5D42FE352A20F2E900B2F430 /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				5D42FE0E2A20DF3400B2F430 /* SampleProjectTests.swift */,
+				5D42FE352A20F2E900B2F430 /* RemoteFeedLoaderTests.swift */,
 			);
 			path = SampleProjectTests;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D42FE362A20F2E900B2F430 /* RemoteFeedLoaderTests.swift in Sources */,
 				5D42FE0F2A20DF3400B2F430 /* SampleProjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
