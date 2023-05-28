@@ -2,7 +2,7 @@
 //  SampleFeed.h
 //  SampleFeed
 //
-//  Created by Zara Davtian on 26.05.23.
+//  Created by Zara Davtian on 28.05.23.
 //
 
 #import <Foundation/Foundation.h>

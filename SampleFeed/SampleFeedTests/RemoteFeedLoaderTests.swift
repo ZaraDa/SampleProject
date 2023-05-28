@@ -1,31 +1,12 @@
 //
 //  RemoteFeedLoaderTests.swift
-//  SampleProjectTests
+//  SampleFeedTests
 //
-//  Created by Zara Davtian on 26.05.23.
+//  Created by Zara Davtian on 28.05.23.
 //
 
 import XCTest
-
-class RemoteFeedLoader {
-    let client: HTTPClient
-    let url: URL
-
-    init(url: URL, client: HTTPClient) {
-        self.url = url
-        self.client = client
-    }
-
-    func load() {
-        client.get(from: url)
-    }
-}
-
-protocol HTTPClient {
-    func get(from url:URL)
-}
-
-
+import SampleFeed
 
 class RemoteFeedLoaderTests: XCTestCase {
 

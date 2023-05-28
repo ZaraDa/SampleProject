@@ -1,14 +1,13 @@
 //
 //  FeedItem.swift
-//  
+//  SampleFeed
 //
-//  Created by Zara Davtian on 26.05.23.
+//  Created by Zara Davtian on 28.05.23.
 //
 
 import Foundation
 
-
-struct FeedItem {
+public struct FeedItem {
     let id: UUID
     let description: String?
     let location: String?
