@@ -39,7 +39,6 @@ public final class RemoteFeedLoader {
             case .failure:
                 completion(.connectivity)
             }
-
         }
     }
 }
