@@ -30,9 +30,9 @@ public final class RemoteFeedLoader {
         case success([FeedItem])
         case failure(Error)
 
-        public static func == (lhs: RemoteFeedLoader.Result, rhs: RemoteFeedLoader.Result) -> Bool {
-
-        }
+//        public static func == (lhs: RemoteFeedLoader.Result, rhs: RemoteFeedLoader.Result) -> Bool {
+//            true
+//        }
     }
 
     public init(url: URL, client: HTTPClient) {
@@ -43,8 +43,13 @@ public final class RemoteFeedLoader {
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case .success:
-                completion(.failure(.invalidData))
+            case let .success(data, _):
+                if let _ = try? JSONSerialization.jsonObject(with: data,
+                                                           options: .fragmentsAllowed) {
+                    completion(.success([]))
+                } else {
+                    completion(.failure(.invalidData))
+                }
             case .failure:
                 completion(.failure(.connectivity))
             }
