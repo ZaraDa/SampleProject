@@ -16,6 +16,7 @@
 		5D42FEDE2A239B9D00B2F430 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEDD2A239B9D00B2F430 /* FeedItem.swift */; };
 		5D42FEE02A239BB800B2F430 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEDF2A239BB800B2F430 /* FeedLoader.swift */; };
 		5D42FEE22A28EA5B00B2F430 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEE12A28EA5B00B2F430 /* HTTPClient.swift */; };
+		5D42FEE42A28EAFD00B2F430 /* FeedItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEE32A28EAFD00B2F430 /* FeedItemsMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		5D42FEDD2A239B9D00B2F430 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		5D42FEDF2A239BB800B2F430 /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
 		5D42FEE12A28EA5B00B2F430 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		5D42FEE32A28EAFD00B2F430 /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			children = (
 				5D42FEDB2A239B4B00B2F430 /* RemoteFeedLoader.swift */,
 				5D42FEE12A28EA5B00B2F430 /* HTTPClient.swift */,
+				5D42FEE32A28EAFD00B2F430 /* FeedItemsMapper.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				5D42FEE02A239BB800B2F430 /* FeedLoader.swift in Sources */,
 				5D42FEE22A28EA5B00B2F430 /* HTTPClient.swift in Sources */,
 				5D42FEDC2A239B4B00B2F430 /* RemoteFeedLoader.swift in Sources */,
+				5D42FEE42A28EAFD00B2F430 /* FeedItemsMapper.swift in Sources */,
 				5D42FEB22A23966500B2F430 /* SampleFeed.docc in Sources */,
 				5D42FEDE2A239B9D00B2F430 /* FeedItem.swift in Sources */,
 			);
