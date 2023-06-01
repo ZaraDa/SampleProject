@@ -29,10 +29,6 @@ public final class RemoteFeedLoader {
     public enum Result: Equatable {
         case success([FeedItem])
         case failure(Error)
-
-//        public static func == (lhs: RemoteFeedLoader.Result, rhs: RemoteFeedLoader.Result) -> Bool {
-//            true
-//        }
     }
 
     public init(url: URL, client: HTTPClient) {
@@ -40,13 +36,12 @@ public final class RemoteFeedLoader {
         self.client = client
     }
 
-    public func load(completion: @escaping (Result) -> Void) {
+    public func load(completion: @escaping (RemoteFeedLoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
             case let .success(data, _):
-                if let _ = try? JSONSerialization.jsonObject(with: data,
-                                                           options: .fragmentsAllowed) {
-                    completion(.success([]))
+                if let root = try? JSONDecoder().decode(Root.self, from: data) {
+                    completion(.success(root.items))
                 } else {
                     completion(.failure(.invalidData))
                 }
@@ -55,4 +50,9 @@ public final class RemoteFeedLoader {
             }
         }
     }
+}
+
+
+private struct Root: Decodable {
+    let items: [FeedItem]
 }
