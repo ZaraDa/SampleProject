@@ -17,6 +17,7 @@
 		5D42FEE02A239BB800B2F430 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEDF2A239BB800B2F430 /* FeedLoader.swift */; };
 		5D42FEE22A28EA5B00B2F430 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEE12A28EA5B00B2F430 /* HTTPClient.swift */; };
 		5D42FEE42A28EAFD00B2F430 /* FeedItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEE32A28EAFD00B2F430 /* FeedItemsMapper.swift */; };
+		5D42FEE82A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEE72A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		5D42FEDF2A239BB800B2F430 /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
 		5D42FEE12A28EA5B00B2F430 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		5D42FEE32A28EAFD00B2F430 /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
+		5D42FEE72A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				5D42FECF2A2398EE00B2F430 /* RemoteFeedLoaderTests.swift */,
+				5D42FEE72A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D42FEBD2A23966500B2F430 /* SampleFeedTests.swift in Sources */,
+				5D42FEE82A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift in Sources */,
 				5D42FED02A2398EE00B2F430 /* RemoteFeedLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
