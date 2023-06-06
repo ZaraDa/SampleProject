@@ -127,7 +127,6 @@ class RemoteFeedLoaderTests: XCTestCase {
         addTeardownBlock { [weak instanse] in
             XCTAssertNil(instanse, "Instanse should have been dealocated. Potential memory leak.", file: file, line: line)
         }
-
     }
 
     private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
