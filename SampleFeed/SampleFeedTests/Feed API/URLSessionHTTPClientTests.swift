@@ -11,12 +11,12 @@ import SampleFeed
 
 class URLSessionHTTPClientTests: XCTestCase {
 
-    override class func setUp() {
+    override func setUp() {
         super.setUp()
         URLProtocolStub.startInterseptingRequests()
     }
 
-    override class func tearDown() {
+    override func tearDown() {
         super.tearDown()
         URLProtocolStub.stopInterseptingRequests()
     }
@@ -192,9 +192,9 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
 
         static func stopInterseptingRequests() {
-            URLProtocol.unregisterClass(URLProtocolStub.self)
-            observer = nil
             stub = nil
+            observer = nil
+            URLProtocol.unregisterClass(URLProtocolStub.self)
         }
 
         override class func canInit(with request: URLRequest) -> Bool {
