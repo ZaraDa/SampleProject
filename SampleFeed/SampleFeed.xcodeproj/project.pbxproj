@@ -127,7 +127,7 @@
 		5D42FEBB2A23966500B2F430 /* SampleFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				5D42FEE92A2F33B300B2F430 /* Helper */,
+				5D42FEE92A2F33B300B2F430 /* Helpers */,
 				5D42FF0D2A40882700B2F430 /* Feed Cache */,
 				5D42FEBC2A23966500B2F430 /* SampleFeedTests.swift */,
 				5D42FEE62A29069600B2F430 /* Feed API */,
@@ -164,13 +164,13 @@
 			path = "Feed API";
 			sourceTree = "<group>";
 		};
-		5D42FEE92A2F33B300B2F430 /* Helper */ = {
+		5D42FEE92A2F33B300B2F430 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				5D42FEEA2A2F33DA00B2F430 /* XCTTestMemoryLeakTrackingHelper.swift */,
 				5D42FF102A408C7B00B2F430 /* AnyInstancesCreationHelper.swift */,
 			);
-			path = Helper;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		5D42FEFC2A3878AC00B2F430 /* Frameworks */ = {
