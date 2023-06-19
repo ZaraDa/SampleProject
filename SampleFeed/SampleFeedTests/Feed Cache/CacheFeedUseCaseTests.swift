@@ -10,7 +10,7 @@ import SampleFeed
 
 
 class LocalFeedLoader {
-    let store: FeedStore
+    private let store: FeedStore
 
     init(store: FeedStore) {
         self.store = store
@@ -25,10 +25,13 @@ class LocalFeedLoader {
 
 class FeedStore {
     var deleteCachedFeedCount = 0
+    var insertCallCount = 0
 
     func deleteCachedFeed() {
         deleteCachedFeedCount += 1
     }
+
+    func completeDeletion(with: Error, at index: Int = 0) {}
 }
 
 
@@ -47,7 +50,16 @@ class CacheFeedUseCaseTests: XCTestCase {
         sut.save(items)
 
         XCTAssertEqual(store.deleteCachedFeedCount, 1)
+    }
 
+    func test_save_doesNotRequestInsertionOnDeletionError() {
+        let (sut, store) = makeSUT()
+        let items = [uniqueItem, uniqueItem]
+        let deletionError = anyNSError
+        sut.save(items)
+        store.completeDeletion(with: deletionError)
+
+        XCTAssertEqual(store.insertCallCount, 0)
     }
 
     //MARK: - helpers
