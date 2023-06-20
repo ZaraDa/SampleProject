@@ -83,7 +83,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     func test_save_DoesNotRecieveCompletionErrorOnDeletionIfSUTDeallocated() {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
-        var recievedResults = [Error?]()
+        var recievedResults = [LocalFeedLoader.SaveResult]()
 
         sut?.save([uniqueItem]) { recievedResults.append($0) }
 
@@ -97,7 +97,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     func test_save_DoesNotRecieveCompletionOnInserionIfSUTDeallocated() {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
-        var recievedResults = [Error?]()
+        var recievedResults = [LocalFeedLoader.SaveResult]()
 
         sut?.save([uniqueItem]) { recievedResults.append($0) }
 
