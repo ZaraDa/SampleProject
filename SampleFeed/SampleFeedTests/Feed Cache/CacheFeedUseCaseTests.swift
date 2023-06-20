@@ -46,7 +46,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         store.completeDeletionSuccessfully()
 
 
-        XCTAssertEqual(store.recievedMessages, [.deleteCachedFeed, .insert(items, timestamp)])
+        XCTAssertEqual(store.recievedMessages, [.deleteCachedFeed, .insert(items.toLocal(), timestamp)])
     }
 
     func test_save_failsOnDeletionError(file: StaticString = #file,
@@ -117,7 +117,7 @@ class CacheFeedUseCaseTests: XCTestCase {
 
         enum RecievedMessage: Equatable {
             case deleteCachedFeed
-            case insert([FeedItem], Date)
+            case insert([LocalFeedItem], Date)
         }
 
         var recievedMessages = [RecievedMessage]()
@@ -138,7 +138,7 @@ class CacheFeedUseCaseTests: XCTestCase {
             deletionCompletions[index](nil)
         }
 
-        func insert(_ items: [FeedItem], timestamp: Date, completion: @escaping InsertionCompletion) {
+        func insert(_ items: [LocalFeedItem], timestamp: Date, completion: @escaping InsertionCompletion) {
             recievedMessages.append(.insert(items, timestamp))
             insertionCompletions.append(completion)
         }
