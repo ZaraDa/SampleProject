@@ -116,59 +116,35 @@ class CacheFeedUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.deleteCachedFeed, .insert(items, timestamp)])
     }
 
-    func test_save_failsOnDeletionError() {
+    func test_save_failsOnDeletionError(file: StaticString = #file,
+                                        line: UInt = #line) {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem, uniqueItem]
         let deletionError = anyNSError
 
-        let exp = expectation(description: "wait for completion")
-        var recievedError: Error?
-        sut.save(items) { error in
-            recievedError = error
-            exp.fulfill()
-        }
-
-        store.completeDeletion(with: deletionError)
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual(recievedError as? NSError, deletionError)
+        expect(sut: sut, toCompleteWithError: deletionError, file: file, line: line, when: {
+            store.completeDeletion(with: deletionError)
+        })
     }
 
-    func test_save_failsOnInsertionError() {
+    func test_save_failsOnInsertionError(file: StaticString = #file,
+                                         line: UInt = #line) {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem, uniqueItem]
         let insertionError = anyNSError
 
-        let exp = expectation(description: "wait for completion")
-        var recievedError: Error?
-        sut.save(items) { error in
-            recievedError = error
-            exp.fulfill()
-        }
-
-        store.completeDeletionSuccessfully()
-        store.completeInsertion(with: insertionError)
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual(recievedError as? NSError, insertionError)
+        expect(sut: sut, toCompleteWithError: insertionError, file: file, line: line, when: {
+            store.completeDeletionSuccessfully()
+            store.completeInsertion(with: insertionError)
+        })
     }
 
-    func test_save_succeedsOnInsertionSuccess() {
+    func test_save_succeedsOnInsertionSuccess(file: StaticString = #file,
+                                              line: UInt = #line) {
         let (sut, store) = makeSUT()
-        let items = [uniqueItem, uniqueItem]
 
-        let exp = expectation(description: "wait for completion")
-        var recievedError: Error?
-        sut.save(items) { error in
-            recievedError = error
-            exp.fulfill()
-        }
-
-        store.completeDeletionSuccessfully()
-        store.completeInsertionSuccessfully()
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertNil(recievedError)
+        expect(sut: sut, toCompleteWithError: nil, file: file, line: line, when: {
+            store.completeDeletionSuccessfully()
+            store.completeInsertionSuccessfully()
+        })
     }
 
 
@@ -190,6 +166,25 @@ class CacheFeedUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut: sut, store: store)
+    }
+
+    func expect(sut: LocalFeedLoader,
+                toCompleteWithError expectedError: Error?,
+                file: StaticString = #file,
+                line: UInt = #line,
+                when action: () -> Void) {
+        let items = [uniqueItem, uniqueItem]
+        let exp = expectation(description: "wait for completion")
+        var recievedError: Error?
+        sut.save(items) { error in
+            recievedError = error
+            exp.fulfill()
+        }
+
+        action()
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual(recievedError as? NSError, expectedError as? NSError)
     }
     
 
