@@ -14,10 +14,10 @@ internal struct RemoteFeedItem: Decodable {
     internal let location: String?
     internal let image: URL
 
-    internal var item: FeedItem {
-         FeedItem(id: id,
+    internal var item: FeedImage {
+        FeedImage(id: id,
                   description: description,
                   location: location,
-                  imageURL: image)
+                  url: image)
     }
 }
