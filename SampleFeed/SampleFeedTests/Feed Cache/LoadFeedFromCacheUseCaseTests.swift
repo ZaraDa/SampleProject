@@ -29,50 +29,36 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
 
         let retrievalError = anyNSError
 
-        var recievedError: Error?
-        let exp = expectation(description: "wait for completion")
-        sut.load { result in
-            switch result {
-            case let .failure(error):
-                recievedError = error
-            default:
-                XCTFail("expected failure, got \(result)")
-            }
-            exp.fulfill()
-        }
-
-        store.completeRetrieval(with: retrievalError)
-
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual(recievedError as? NSError, retrievalError)
+        expect(sut, completeWithResult: .failure(retrievalError),
+               when: {
+            store.completeRetrieval(with: retrievalError)
+        })
     }
 
     func test_load_deliversNoImagesOnEmptyCache() {
         let (sut, store) = makeSUT()
 
-        var recievedImages: [FeedImage]?
-        let exp = expectation(description: "wait for completion")
-        sut.load { result in
-            switch result {
-            case let .success(images):
-                recievedImages = images
-            default:
-                XCTFail("expected success, got result \(result)")
-            }
-            exp.fulfill()
-        }
+        expect(sut, completeWithResult: .success([]),
+               when: {
+            store.completeRetrievalWithEmptyCache()
+        })
+    }
 
-        store.completeRetrievalWithEmptyCache()
+    func test_load_deliversCachedImagesOnLessThanSevenDaysCache() {
+        let (sut, store) = makeSUT()
 
-        wait(for: [exp], timeout: 1.0)
+        let images = [uniqueItem, uniqueItem]
+        let timestamp = Date().adding(days: -7)!.adding(minuts: +1)!
 
-        XCTAssertEqual(recievedImages, [])
+        expect(sut, completeWithResult: .success(images),
+               when: {
+            store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
+        })
     }
 
     //MARK: - helpers
 
-    func makeSUT(currentDate: @escaping () -> Date = Date.init,
+    private func makeSUT(currentDate: @escaping () -> Date = Date.init,
                  file: StaticString = #file,
                  line: UInt = #line) -> (LocalFeedLoader, FeedStoreSpy) {
         let store = FeedStoreSpy()
@@ -80,5 +66,40 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut: sut, store: store)
+    }
+
+    private func expect(_ sut: LocalFeedLoader,
+                        completeWithResult expectedResult: LocalFeedLoader.LoadResult,
+                        file: StaticString = #file,
+                        line: UInt = #line,
+                        when action: () -> Void) {
+
+        let exp = expectation(description: "wait for completion")
+        sut.load { recievedResult in
+            switch (recievedResult, expectedResult) {
+            case let (.success(recievedImages), .success(expectedImages)):
+                XCTAssertEqual(recievedImages, expectedImages)
+            case let (.failure(recievedError), .failure(expectedError)):
+                XCTAssertEqual(recievedError as NSError, expectedError as NSError)
+            default:
+                XCTFail("expected \(expectedResult), got \(recievedResult)")
+            }
+            exp.fulfill()
+        }
+
+        action()
+
+        wait(for: [exp], timeout: 1.0)
+    }
+
+}
+
+private extension Date {
+    func adding(days: Int) -> Date? {
+         Calendar.current.date(byAdding: .day, value: days, to: self)
+    }
+
+    func adding(minuts: Int) -> Date? {
+        Calendar.current.date(byAdding: .minute, value: minuts, to: self)
     }
 }

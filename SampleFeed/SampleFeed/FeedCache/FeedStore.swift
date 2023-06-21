@@ -7,10 +7,28 @@
 
 import Foundation
 
+public struct FeedCache {
+    let images: [LocalFeedImage]
+    let timestamp: Date
+
+    public init(images: [LocalFeedImage], timestamp: Date) {
+        self.images = images
+        self.timestamp = timestamp
+    }
+}
+
+public enum FeedRetrievalResult {
+    case empty
+    case found(FeedCache)
+    case failure(Error)
+}
+
+
 public protocol FeedStore {
+
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
-    typealias RetrievalCompletion = (Error?) -> Void
+    typealias RetrievalCompletion = (FeedRetrievalResult) -> Void
 
     func deleteCachedFeed(completion: @escaping DeletionCompletion)
     func insert(_ items: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion)

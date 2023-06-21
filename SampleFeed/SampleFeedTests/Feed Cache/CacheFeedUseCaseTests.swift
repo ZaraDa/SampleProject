@@ -49,32 +49,34 @@ class CacheFeedUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.deleteCachedFeed, .insert(items.toLocal(), timestamp)])
     }
 
-    func test_save_failsOnDeletionError(file: StaticString = #file,
-                                        line: UInt = #line) {
+    func test_save_failsOnDeletionError() {
         let (sut, store) = makeSUT()
         let deletionError = anyNSError
 
-        expect(sut: sut, toCompleteWithError: deletionError, file: file, line: line, when: {
+        expect(sut: sut,
+               toCompleteWithError: deletionError,
+               when: {
             store.completeDeletion(with: deletionError)
         })
     }
 
-    func test_save_failsOnInsertionError(file: StaticString = #file,
-                                         line: UInt = #line) {
+    func test_save_failsOnInsertionError() {
         let (sut, store) = makeSUT()
         let insertionError = anyNSError
 
-        expect(sut: sut, toCompleteWithError: insertionError, file: file, line: line, when: {
+        expect(sut: sut, toCompleteWithError: insertionError, when: {
             store.completeDeletionSuccessfully()
             store.completeInsertion(with: insertionError)
         })
+
     }
 
-    func test_save_succeedsOnInsertionSuccess(file: StaticString = #file,
-                                              line: UInt = #line) {
+    func test_save_succeedsOnInsertionSuccess() {
         let (sut, store) = makeSUT()
 
-        expect(sut: sut, toCompleteWithError: nil, file: file, line: line, when: {
+        expect(sut: sut,
+               toCompleteWithError: nil,
+               when: {
             store.completeDeletionSuccessfully()
             store.completeInsertionSuccessfully()
         })
@@ -112,14 +114,7 @@ class CacheFeedUseCaseTests: XCTestCase {
 
     //MARK: - helpers
 
-    var uniqueItem: FeedImage {
-        FeedImage(id: UUID(),
-                 description: "any",
-                 location: "any",
-                 url: anyURL)
-    }
-
-    func makeSUT(currentDate: @escaping () -> Date = Date.init,
+   private func makeSUT(currentDate: @escaping () -> Date = Date.init,
                  file: StaticString = #file,
                  line: UInt = #line) -> (LocalFeedLoader, FeedStoreSpy) {
         let store = FeedStoreSpy()
@@ -129,7 +124,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         return (sut: sut, store: store)
     }
 
-    func expect(sut: LocalFeedLoader,
+    private func expect(sut: LocalFeedLoader,
                 toCompleteWithError expectedError: Error?,
                 file: StaticString = #file,
                 line: UInt = #line,

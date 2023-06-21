@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import SampleFeed
 
 
 extension XCTestCase {
@@ -35,5 +36,12 @@ extension XCTestCase {
                     mimeType: nil,
                     expectedContentLength: 0,
                     textEncodingName: nil)
+    }
+
+    var uniqueItem: FeedImage {
+        FeedImage(id: UUID(),
+                 description: "any",
+                 location: "any",
+                 url: anyURL)
     }
 }
