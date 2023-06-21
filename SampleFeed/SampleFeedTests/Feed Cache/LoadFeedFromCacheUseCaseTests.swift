@@ -56,6 +56,18 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         })
     }
 
+    func test_load_deliversNoImagesOnSevenDaysCache() {
+        let (sut, store) = makeSUT()
+
+        let images = [uniqueItem, uniqueItem]
+        let timestamp = Date().adding(days: -7)!
+
+        expect(sut, completeWithResult: .success([]),
+               when: {
+            store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
+        })
+    }
+
     //MARK: - helpers
 
     private func makeSUT(currentDate: @escaping () -> Date = Date.init,
