@@ -86,8 +86,6 @@ class ValidateCacheUseCaseTests: XCTestCase {
         store.completeRetrieval(with: anyNSError)
 
         XCTAssertTrue(store.recievedMessages == [.retrieve])
-
-
     }
 
     
