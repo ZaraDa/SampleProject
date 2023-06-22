@@ -32,6 +32,7 @@
 		5D42FF1C2A42FFF300B2F430 /* LoadFeedFromCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF1B2A42FFF300B2F430 /* LoadFeedFromCacheUseCaseTests.swift */; };
 		5D42FF1F2A4303A600B2F430 /* FeedStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF1E2A4303A600B2F430 /* FeedStoreSpy.swift */; };
 		5D42FF212A44277B00B2F430 /* ValidateCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF202A44277B00B2F430 /* ValidateCacheUseCaseTests.swift */; };
+		5D42FF232A443B8D00B2F430 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF222A443B8D00B2F430 /* DateHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		5D42FF1B2A42FFF300B2F430 /* LoadFeedFromCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedFromCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		5D42FF1E2A4303A600B2F430 /* FeedStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpy.swift; sourceTree = "<group>"; };
 		5D42FF202A44277B00B2F430 /* ValidateCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCacheUseCaseTests.swift; sourceTree = "<group>"; };
+		5D42FF222A443B8D00B2F430 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				5D42FF1E2A4303A600B2F430 /* FeedStoreSpy.swift */,
+				5D42FF222A443B8D00B2F430 /* DateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				5D42FF0F2A40885200B2F430 /* CacheFeedUseCaseTests.swift in Sources */,
 				5D42FF1F2A4303A600B2F430 /* FeedStoreSpy.swift in Sources */,
 				5D42FF112A408C7B00B2F430 /* AnyInstancesCreationHelper.swift in Sources */,
+				5D42FF232A443B8D00B2F430 /* DateHelper.swift in Sources */,
 				5D42FEBD2A23966500B2F430 /* SampleFeedTests.swift in Sources */,
 				5D42FEE82A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift in Sources */,
 				5D42FED02A2398EE00B2F430 /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,

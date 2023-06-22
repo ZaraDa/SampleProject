@@ -192,12 +192,3 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
 
 }
 
-extension Date  {
-    func adding(days: Int) -> Date? {
-         Calendar.current.date(byAdding: .day, value: days, to: self)
-    }
-
-    func adding(minuts: Int) -> Date? {
-        Calendar.current.date(byAdding: .minute, value: minuts, to: self)
-    }
-}
