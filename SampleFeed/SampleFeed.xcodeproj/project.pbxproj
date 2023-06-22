@@ -33,6 +33,7 @@
 		5D42FF1F2A4303A600B2F430 /* FeedStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF1E2A4303A600B2F430 /* FeedStoreSpy.swift */; };
 		5D42FF212A44277B00B2F430 /* ValidateCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF202A44277B00B2F430 /* ValidateCacheUseCaseTests.swift */; };
 		5D42FF232A443B8D00B2F430 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF222A443B8D00B2F430 /* DateHelper.swift */; };
+		5D42FF252A4473D700B2F430 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		5D42FF1E2A4303A600B2F430 /* FeedStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpy.swift; sourceTree = "<group>"; };
 		5D42FF202A44277B00B2F430 /* ValidateCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		5D42FF222A443B8D00B2F430 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 				5D42FF132A41B48C00B2F430 /* LocalFeedLoader.swift */,
 				5D42FF152A41B51B00B2F430 /* FeedStore.swift */,
 				5D42FF172A41DDFF00B2F430 /* LocalFeedImage.swift */,
+				5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				5D42FEDC2A239B4B00B2F430 /* RemoteFeedLoader.swift in Sources */,
 				5D42FEE42A28EAFD00B2F430 /* FeedItemsMapper.swift in Sources */,
 				5D42FEB22A23966500B2F430 /* SampleFeed.docc in Sources */,
+				5D42FF252A4473D700B2F430 /* FeedCachePolicy.swift in Sources */,
 				5D42FF142A41B48C00B2F430 /* LocalFeedLoader.swift in Sources */,
 				5D42FF1A2A41DE2400B2F430 /* RemoteFeedItem.swift in Sources */,
 				5D42FEDE2A239B9D00B2F430 /* FeedItem.swift in Sources */,
