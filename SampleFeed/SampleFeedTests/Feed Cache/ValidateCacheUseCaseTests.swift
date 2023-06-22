@@ -26,7 +26,7 @@ class ValidateCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve, .deleteCachedFeed])
     }
 
-    func test_load_DoesNotDeleteCacheOnEmptyCache() {
+    func test_validateCache_DoesNotDeleteCacheOnEmptyCache() {
         let (sut, store) = makeSUT()
 
         sut.validateCache()
@@ -36,7 +36,7 @@ class ValidateCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve])
     }
 
-    func validateCache() {
+    func test_validateCache_doesNotDeleteCacheOnLessThanSevenDaysCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
@@ -47,6 +47,32 @@ class ValidateCacheUseCaseTests: XCTestCase {
         store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
 
         XCTAssertEqual(store.recievedMessages, [.retrieve])
+    }
+
+    func test_validateCache_DeletesSevenDaysOldCache() {
+        let (sut, store) = makeSUT()
+
+        let images = [uniqueItem, uniqueItem]
+        let timestamp = Date().adding(days: -7)!
+
+        sut.validateCache()
+
+        store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
+
+        XCTAssertEqual(store.recievedMessages, [.retrieve, .deleteCachedFeed])
+    }
+
+    func test_validateCache_DeletesMoreThanSevenDaysOldCache() {
+        let (sut, store) = makeSUT()
+
+        let images = [uniqueItem, uniqueItem]
+        let timestamp = Date().adding(days: -7)!.adding(days: -1)!
+
+        sut.validateCache()
+
+        store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
+
+        XCTAssertEqual(store.recievedMessages, [.retrieve, .deleteCachedFeed])
     }
 
     
