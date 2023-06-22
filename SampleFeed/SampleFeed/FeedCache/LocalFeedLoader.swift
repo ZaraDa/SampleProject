@@ -7,9 +7,7 @@
 
 import Foundation
 
-public final class LocalFeedLoader {
-    public typealias SaveResult = Error?
-    public typealias LoadResult = LoadFeedResult
+public final class LocalFeedLoader: FeedLoader {
 
     let calendar = Calendar(identifier: .gregorian)
 
@@ -24,6 +22,19 @@ public final class LocalFeedLoader {
         self.store = store
         self.currentDate = currentDate
     }
+
+
+    private func validate(timestamp: Date) -> Bool {
+        guard let maxValidCache = calendar.date(byAdding: .day, value: maxCacheDaysInDays, to: timestamp) else {
+            return false
+        }
+
+        return currentDate() < maxValidCache
+    }
+}
+
+extension LocalFeedLoader {
+    public typealias SaveResult = Error?
 
     public func save(_ items: [FeedImage], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedFeed { [weak self] error in
@@ -43,6 +54,10 @@ public final class LocalFeedLoader {
             completion(error)
         }
     }
+}
+
+extension LocalFeedLoader {
+    public typealias LoadResult = LoadFeedResult
 
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve {[weak self] result in
@@ -51,16 +66,16 @@ public final class LocalFeedLoader {
             switch result {
             case let .found(cache) where self.validate(timestamp: cache.timestamp):
                 completion(.success(cache.images.toModel()))
-            case .found:
-                completion(.success([]))
-            case .empty:
+            case .found, .empty:
                 completion(.success([]))
             case let .failure(error):
                 completion(.failure(error))
             }
         }
     }
+}
 
+extension LocalFeedLoader {
     public func validateCache() {
         store.retrieve {[weak self] result in
             guard let self = self else { return }
@@ -75,15 +90,8 @@ public final class LocalFeedLoader {
             }
         }
     }
-
-    private func validate(timestamp: Date) -> Bool {
-        guard let maxValidCache = calendar.date(byAdding: .day, value: maxCacheDaysInDays, to: timestamp) else {
-            return false
-        }
-
-        return currentDate() < maxValidCache
-    }
 }
+
 
 
 public extension Array where Element == FeedImage {
