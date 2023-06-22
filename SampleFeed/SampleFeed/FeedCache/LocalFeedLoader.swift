@@ -48,8 +48,11 @@ public final class LocalFeedLoader {
         store.retrieve {[unowned self] result in
             switch result {
             case let .found(cache) where self.validate(timestamp: cache.timestamp):
-                    completion(.success(cache.images.toModel()))
-            case .found, .empty:
+                completion(.success(cache.images.toModel()))
+            case .found:
+                store.deleteCachedFeed { _ in }
+                completion(.success([]))
+            case .empty:
                 completion(.success([]))
             case let .failure(error):
                 store.deleteCachedFeed { _ in }
