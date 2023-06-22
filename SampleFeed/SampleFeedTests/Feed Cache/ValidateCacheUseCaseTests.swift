@@ -36,6 +36,19 @@ class ValidateCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve])
     }
 
+    func validateCache() {
+        let (sut, store) = makeSUT()
+
+        let images = [uniqueItem, uniqueItem]
+        let timestamp = Date().adding(days: -7)!.adding(minuts: +1)!
+
+        sut.validateCache()
+
+        store.completeRetrievalWithCachedImages(images: images.toLocal(), timestamp: timestamp)
+
+        XCTAssertEqual(store.recievedMessages, [.retrieve])
+    }
+
     
     //MARK: - helpers
 
