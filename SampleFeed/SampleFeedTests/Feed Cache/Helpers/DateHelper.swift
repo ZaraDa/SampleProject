@@ -16,4 +16,8 @@ extension Date  {
     func adding(minuts: Int) -> Date? {
         Calendar.current.date(byAdding: .minute, value: minuts, to: self)
     }
+
+    func minusFeedCacheMaxAge() -> Date? {
+        self.adding(days: -7)
+    }
 }

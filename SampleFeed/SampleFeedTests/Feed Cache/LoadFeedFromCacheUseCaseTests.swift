@@ -100,11 +100,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve])
     }
 
-    func test_load_HasNoSideEffectsOnLessThanSevenDaysOldCache() {
+    func test_load_HasNoSideEffectsOnNonExpiredCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!.adding(minuts: +1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(minuts: +1)!
 
         sut.load {_ in }
 
@@ -113,11 +113,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve])
     }
 
-    func test_load_HasNoSideEffectsOnSevenDaysOldCache() {
+    func test_load_HasNoSideEffectsOnCacheExpiration() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!
+        let timestamp = Date().minusFeedCacheMaxAge()!
 
         sut.load {_ in }
 
@@ -126,11 +126,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.recievedMessages, [.retrieve])
     }
 
-    func test_load_HasNoSideEffectsOnMoreThanSevenDaysOldCache() {
+    func test_load_HasNoSideEffectsOnExpiredCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!.adding(days: -1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(days: -1)!
 
         sut.load {_ in }
 
