@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FeedCache: Codable {
+public struct FeedCache {
    public  let images: [LocalFeedImage]
    public  let timestamp: Date
 

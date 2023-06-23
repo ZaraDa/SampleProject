@@ -10,21 +10,59 @@ import SampleFeed
 
 class CodableFeedStore {
 
+    private struct CodableFeedCache: Codable {
+       private  let images: [CodableFeedImage]
+       private  let timestamp: Date
+
+        init(images: [CodableFeedImage], timestamp: Date) {
+            self.images = images
+            self.timestamp = timestamp
+        }
+
+        func toFeedCache() -> FeedCache {
+            let localImages = images.map{ $0.toLocal() }
+            return FeedCache(images: localImages,
+                             timestamp: timestamp)
+        }
+    }
+
+    private struct CodableFeedImage: Codable {
+        private let id: UUID
+        private let description: String?
+        private let location: String?
+        private let url: URL
+
+        func toLocal() -> LocalFeedImage {
+            LocalFeedImage(id: id,
+                           description: description,
+                           location: location,
+                           url: url)
+        }
+
+        static func toCodable(image: LocalFeedImage) -> CodableFeedImage {
+            CodableFeedImage(id: image.id,
+                             description: image.description,
+                             location: image.location,
+                             url: image.url)
+        }
+    }
+
     private let storeURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("feed_store")
 
     func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
         let decoder = JSONDecoder()
-        guard let cache = try? decoder.decode(FeedCache.self, from: Data(contentsOf: storeURL)) else {
+        guard let cache = try? decoder.decode(CodableFeedCache.self, from: Data(contentsOf: storeURL)) else {
             completion(.empty)
             return
         }
 
-        completion(.found(cache))
+        completion(.found(cache.toFeedCache()))
 
     }
 
     func insert(_ items: [LocalFeedImage], timestamp: Date, completion: @escaping FeedStore.InsertionCompletion) {
-        let feedCache = FeedCache(images: items, timestamp: timestamp)
+        let codableImages = items.map{ CodableFeedImage.toCodable(image: $0) }
+        let feedCache = CodableFeedCache(images: codableImages, timestamp: timestamp)
 
         let encoder = JSONEncoder()
         let encodedData = try! encoder.encode(feedCache)
