@@ -9,19 +9,20 @@ import Foundation
 
 
 extension Date  {
-    func adding(days: Int) -> Date? {
+    private func adding(days: Int) -> Date? {
          Calendar.current.date(byAdding: .day, value: days, to: self)
     }
 
-    func adding(minuts: Int) -> Date? {
-        Calendar.current.date(byAdding: .minute, value: minuts, to: self)
+    private var feedCacheMaxAgeInDays: Int {
+        return 7
     }
 
     func minusFeedCacheMaxAge() -> Date? {
         self.adding(days: -feedCacheMaxAgeInDays)
     }
-
-    var feedCacheMaxAgeInDays: Int {
-        return 7
+}
+extension Date {
+    func adding(minuts: Int) -> Date? {
+        Calendar.current.date(byAdding: .minute, value: minuts, to: self)
     }
 }

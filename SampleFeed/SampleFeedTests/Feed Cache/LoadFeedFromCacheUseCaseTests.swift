@@ -44,11 +44,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         })
     }
 
-    func test_load_deliversCachedImagesOnLessThanSevenDaysCache() {
+    func test_load_deliversCachedImagesOnNonExpiredCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!.adding(minuts: +1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(minuts: +1)!
 
         expect(sut, completeWithResult: .success(images),
                when: {
@@ -56,11 +56,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         })
     }
 
-    func test_load_deliversNoImagesOnSevenDaysCache() {
+    func test_load_deliversNoImagesOnExpirationofCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!
+        let timestamp = Date().minusFeedCacheMaxAge()!
 
         expect(sut, completeWithResult: .success([]),
                when: {
@@ -68,11 +68,11 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         })
     }
 
-    func test_load_deliversNoImagesOnMoreThanSevenDaysCache() {
+    func test_load_deliversNoImagesOnExpiredCache() {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().adding(days: -7)!.adding(minuts: -1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(minuts: -1)!
 
         expect(sut, completeWithResult: .success([]),
                when: {
@@ -130,7 +130,7 @@ class LoadFeedFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().minusFeedCacheMaxAge()!.adding(days: -1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(minuts: -1)!
 
         sut.load {_ in }
 

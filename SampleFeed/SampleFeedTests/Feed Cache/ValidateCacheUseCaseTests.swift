@@ -66,7 +66,7 @@ class ValidateCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
 
         let images = [uniqueItem, uniqueItem]
-        let timestamp = Date().minusFeedCacheMaxAge()!.adding(days: -1)!
+        let timestamp = Date().minusFeedCacheMaxAge()!.adding(minuts: -1)!
 
         sut.validateCache()
 
