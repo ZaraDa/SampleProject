@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct FeedCache {
-    let images: [LocalFeedImage]
-    let timestamp: Date
+public struct FeedCache: Codable {
+   public  let images: [LocalFeedImage]
+   public  let timestamp: Date
 
     public init(images: [LocalFeedImage], timestamp: Date) {
         self.images = images
