@@ -80,13 +80,13 @@ class CodableFeedStoreTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        try? FileManager.default.removeItem(at: testSpecificStoreURL)
+        setUpEmptyStoreURL()
     }
 
     override func tearDown() {
         super.tearDown()
 
-        try? FileManager.default.removeItem(at: testSpecificStoreURL)
+        removeSideEffects()
     }
 
 
@@ -148,6 +148,35 @@ class CodableFeedStoreTests: XCTestCase {
         wait(for: [retrieveExp], timeout: 1.0)
   }
 
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
+        let sut = makeSUT()
+        let images = [uniqueItem, uniqueItem].toLocal()
+        let timestamp = Date()
+
+        let retrieveExp = expectation(description: "wait for completion")
+
+        sut.insert(images, timestamp: timestamp) { insertionError in
+            XCTAssertNil(insertionError)
+            sut.retrieve { firstResult in
+                sut.retrieve { secondResult in
+                    switch (firstResult, secondResult) {
+                    case let (.found(firstCache), .found(secondCache)):
+                        XCTAssertEqual(firstCache.images, secondCache.images)
+                        XCTAssertEqual(firstCache.timestamp, secondCache.timestamp)
+
+                        XCTAssertEqual(firstCache.images, images)
+                        XCTAssertEqual(firstCache.timestamp, timestamp)
+                    default:
+                        XCTFail("Expected retrieving data from caches, got \(firstResult) and \(secondResult)")
+                    }
+                    retrieveExp.fulfill()
+                }
+            }
+        }
+
+        wait(for: [retrieveExp], timeout: 1.0)
+    }
+
     //MARK: // -- Helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
@@ -158,5 +187,18 @@ class CodableFeedStoreTests: XCTestCase {
 
     private var testSpecificStoreURL: URL {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("\(type(of: self)).store")
+    }
+
+    private func setUpEmptyStoreURL() {
+        deleteStoreArtifacts()
+
+    }
+
+    private func removeSideEffects() {
+        deleteStoreArtifacts()
+    }
+
+    private func deleteStoreArtifacts() {
+        try? FileManager.default.removeItem(at: testSpecificStoreURL)
     }
 }
