@@ -93,17 +93,7 @@ class CodableFeedStoreTests: XCTestCase {
     func test_retrieve_deliversEmptyOnEmptyCache() {
        let sut = makeSUT()
 
-        let exp = expectation(description: "wait for completion")
-        sut.retrieve { result in
-            switch result {
-            case .empty:
-                break
-            default:
-                XCTFail("Expected empty result")
-            }
-            exp.fulfill()
-    }
-        wait(for: [exp], timeout: 1.0)
+        expect(sut: sut, toRetrieve: .empty)
   }
 
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
@@ -129,23 +119,16 @@ class CodableFeedStoreTests: XCTestCase {
         let images = [uniqueItem, uniqueItem].toLocal()
         let timestamp = Date()
 
-        let retrieveExp = expectation(description: "wait for completion")
+        let exp = expectation(description: "wait for completion")
 
         sut.insert(images, timestamp: timestamp) { insertionError in
                 XCTAssertNil(insertionError)
-                sut.retrieve { result in
-                    switch result {
-                    case let .found(cache):
-                        XCTAssertEqual(images, cache.images)
-                        XCTAssertEqual(timestamp, cache.timestamp)
-                    default:
-                        XCTFail("expected to retrieve items got \(result)")
-                    }
-                    retrieveExp.fulfill()
-                }
+            exp.fulfill()
         }
 
-        wait(for: [retrieveExp], timeout: 1.0)
+        wait(for: [exp], timeout: 1.0)
+
+        expect(sut: sut, toRetrieve: .found(FeedCache(images: images, timestamp: timestamp)))
   }
 
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
@@ -200,5 +183,25 @@ class CodableFeedStoreTests: XCTestCase {
 
     private func deleteStoreArtifacts() {
         try? FileManager.default.removeItem(at: testSpecificStoreURL)
+    }
+
+    private func expect(sut: CodableFeedStore, toRetrieve expectedResult: FeedRetrievalResult) {
+
+        let exp = expectation(description: "waiting for retrieval")
+
+        sut.retrieve { retrievedResult in
+            switch (expectedResult, retrievedResult) {
+            case (.empty, .empty):
+                break
+            case let (.found(expectedCache), .found(retrievedCache)):
+                XCTAssertEqual(expectedCache.images, retrievedCache.images)
+                XCTAssertEqual(expectedCache.timestamp, retrievedCache.timestamp)
+            default:
+                XCTFail("expected \(expectedResult), got \(retrievedResult)")
+            }
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
     }
 }
