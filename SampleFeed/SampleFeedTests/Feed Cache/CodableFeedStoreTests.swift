@@ -104,19 +104,19 @@ class CodableFeedStoreTests: XCTestCase {
 
 
     func test_retrieve_deliversEmptyOnEmptyCache() {
-       let sut = makeSUT(storeURL: testSpecificStoreURL)
+       let sut = makeSUT()
 
         expect(sut: sut, toRetrieve: .empty)
   }
 
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-       let sut = makeSUT(storeURL: testSpecificStoreURL)
+       let sut = makeSUT()
 
         expect(sut: sut, toRetrieveTwice: .empty)
   }
 
     func test_retrieve_afterInsertingToEmptyCacheDeliversInsertedValues() {
-       let sut = makeSUT(storeURL: testSpecificStoreURL)
+       let sut = makeSUT()
         let images = [uniqueItem, uniqueItem].toLocal()
         let timestamp = Date()
 
@@ -126,7 +126,7 @@ class CodableFeedStoreTests: XCTestCase {
   }
 
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
-        let sut = makeSUT(storeURL: testSpecificStoreURL)
+        let sut = makeSUT()
         let images = [uniqueItem, uniqueItem].toLocal()
         let timestamp = Date()
 
@@ -136,8 +136,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     func test_retrieve_deliversFailureOnRetrivalError() {
-        let storeURL = testSpecificStoreURL
-        let sut = makeSUT(storeURL: storeURL)
+        let sut = makeSUT()
 
         try! "invalid Data".write(to: testSpecificStoreURL, atomically: false, encoding: .utf8)
 
@@ -145,8 +144,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     func test_retrieve_HasNoSideEffectsOnRetrivalError() {
-        let storeURL = testSpecificStoreURL
-        let sut = makeSUT(storeURL: storeURL)
+        let sut = makeSUT()
 
         try! "invalid Data".write(to: testSpecificStoreURL, atomically: false, encoding: .utf8)
 
@@ -154,8 +152,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     func test_insertOverridesPreviousInseredCache() {
-        let storeURL = testSpecificStoreURL
-        let sut = makeSUT(storeURL: storeURL)
+        let sut = makeSUT()
 
         let images1 = [uniqueItem, uniqueItem].toLocal()
         let timestamp1 = Date()
@@ -182,8 +179,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     func test_delete_hasNoSideEffectsOnEmptyCache() {
-        let storeURL = testSpecificStoreURL
-        let sut = makeSUT(storeURL: storeURL)
+        let sut = makeSUT()
 
         let exp = expectation(description: "wait for completion")
         sut.deleteCachedFeed { recievedError in
@@ -198,8 +194,8 @@ class CodableFeedStoreTests: XCTestCase {
 
     //MARK:  -- Helpers
 
-    private func makeSUT(storeURL: URL, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
-        let sut = CodableFeedStore(storeURL: storeURL)
+    private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+        let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
