@@ -94,19 +94,19 @@ class CodableFeedStoreTests: XCTestCase {
 
 
     func test_retrieve_deliversEmptyOnEmptyCache() {
-       let sut = makeSUT()
+       let sut = makeSUT(storeURL: testSpecificStoreURL)
 
         expect(sut: sut, toRetrieve: .empty)
   }
 
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-       let sut = makeSUT()
+       let sut = makeSUT(storeURL: testSpecificStoreURL)
 
         expect(sut: sut, toRetrieveTwice: .empty)
   }
 
     func test_retrieve_afterInsertingToEmptyCacheDeliversInsertedValues() {
-       let sut = makeSUT()
+       let sut = makeSUT(storeURL: testSpecificStoreURL)
         let images = [uniqueItem, uniqueItem].toLocal()
         let timestamp = Date()
 
@@ -116,7 +116,7 @@ class CodableFeedStoreTests: XCTestCase {
   }
 
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
-        let sut = makeSUT()
+        let sut = makeSUT(storeURL: testSpecificStoreURL)
         let images = [uniqueItem, uniqueItem].toLocal()
         let timestamp = Date()
 
@@ -126,7 +126,8 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     func test_retrieve_deliversFailureOnRetrivalError() {
-        let sut = makeSUT()
+        let storeURL = testSpecificStoreURL
+        let sut = makeSUT(storeURL: storeURL)
 
         try! "invalid Data".write(to: testSpecificStoreURL, atomically: false, encoding: .utf8)
 
@@ -135,8 +136,8 @@ class CodableFeedStoreTests: XCTestCase {
 
     //MARK:  -- Helpers
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
-        let sut = CodableFeedStore(storeURL: testSpecificStoreURL)
+    private func makeSUT(storeURL: URL, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
+        let sut = CodableFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
