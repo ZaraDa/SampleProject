@@ -68,13 +68,19 @@ class CodableFeedStore {
     }
 
     func insert(_ items: [LocalFeedImage], timestamp: Date, completion: @escaping FeedStore.InsertionCompletion) {
-        let codableImages = items.map{ CodableFeedImage.toCodable(image: $0) }
-        let feedCache = CodableFeedCache(images: codableImages, timestamp: timestamp)
+        do {
+            let codableImages = items.map{ CodableFeedImage.toCodable(image: $0) }
+            let feedCache = CodableFeedCache(images: codableImages, timestamp: timestamp)
 
-        let encoder = JSONEncoder()
-        let encodedData = try! encoder.encode(feedCache)
-        try! encodedData.write(to: storeURL)
-        completion(nil)
+            let encoder = JSONEncoder()
+            let encodedData = try! encoder.encode(feedCache)
+
+            try encodedData.write(to: storeURL)
+
+            completion(nil)
+        } catch {
+            completion(error)
+        }
     }
 }
 
@@ -160,6 +166,17 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut: sut, toRetrieve: .found(FeedCache(images: images2, timestamp: timestamp2)))
     }
 
+    func test_insertDeliversErrorOnInsertionError() {
+       let invalidStoreURL = URL(string: "invalid://store-url")!
+        let sut = makeSUT(storeURL: invalidStoreURL)
+
+        let images = [uniqueItem, uniqueItem].toLocal()
+        let timestamp = Date()
+
+        let error = insert(for: sut, images: images, timestamp: timestamp)
+        XCTAssertNotNil(error)
+    }
+
     //MARK:  -- Helpers
 
     private func makeSUT(storeURL: URL, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
@@ -211,14 +228,17 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut: sut, toRetrieve: result)
     }
 
-    private func insert(for sut: CodableFeedStore, images: [LocalFeedImage], timestamp: Date) {
+    @discardableResult
+    private func insert(for sut: CodableFeedStore, images: [LocalFeedImage], timestamp: Date) -> Error? {
         let exp = expectation(description: "wait for completion")
 
-        sut.insert(images, timestamp: timestamp) { insertionError in
-            XCTAssertNil(insertionError)
+        var insertionError: Error?
+        sut.insert(images, timestamp: timestamp) { recievedError in
+            insertionError = recievedError
             exp.fulfill()
         }
 
         wait(for: [exp], timeout: 1.0)
+        return insertionError
     }
 }
