@@ -53,6 +53,10 @@ class CodableFeedStore {
 
     private let storeURL: URL
 
+    func deleteCachedFeed(completion: @escaping FeedStore.DeletionCompletion) {
+        completion(nil)
+    }
+
     func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
         guard let data = try? Data(contentsOf: storeURL) else {
             return completion(.empty)
@@ -175,6 +179,21 @@ class CodableFeedStoreTests: XCTestCase {
 
         let error = insert(for: sut, images: images, timestamp: timestamp)
         XCTAssertNotNil(error)
+    }
+
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let storeURL = testSpecificStoreURL
+        let sut = makeSUT(storeURL: storeURL)
+
+        let exp = expectation(description: "wait for completion")
+        sut.deleteCachedFeed { recievedError in
+           XCTAssertNil(recievedError, "Expected to successfully delete empty cache")
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
+
+        expect(sut: sut, toRetrieve: .empty)
     }
 
     //MARK:  -- Helpers
