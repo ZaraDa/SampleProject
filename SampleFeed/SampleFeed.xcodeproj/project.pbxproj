@@ -35,6 +35,7 @@
 		5D42FF232A443B8D00B2F430 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF222A443B8D00B2F430 /* DateHelper.swift */; };
 		5D42FF252A4473D700B2F430 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */; };
 		5D42FF272A45A9E800B2F430 /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF262A45A9E800B2F430 /* CodableFeedStoreTests.swift */; };
+		5D42FF292A4C6BF400B2F430 /* CodableFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF282A4C6BF300B2F430 /* CodableFeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		5D42FF222A443B8D00B2F430 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
 		5D42FF262A45A9E800B2F430 /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
+		5D42FF282A4C6BF300B2F430 /* CodableFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				5D42FF152A41B51B00B2F430 /* FeedStore.swift */,
 				5D42FF172A41DDFF00B2F430 /* LocalFeedImage.swift */,
 				5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */,
+				5D42FF282A4C6BF300B2F430 /* CodableFeedStore.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				5D42FEDC2A239B4B00B2F430 /* RemoteFeedLoader.swift in Sources */,
 				5D42FEE42A28EAFD00B2F430 /* FeedItemsMapper.swift in Sources */,
 				5D42FEB22A23966500B2F430 /* SampleFeed.docc in Sources */,
+				5D42FF292A4C6BF400B2F430 /* CodableFeedStore.swift in Sources */,
 				5D42FF252A4473D700B2F430 /* FeedCachePolicy.swift in Sources */,
 				5D42FF142A41B48C00B2F430 /* LocalFeedLoader.swift in Sources */,
 				5D42FF1A2A41DE2400B2F430 /* RemoteFeedItem.swift in Sources */,
