@@ -36,6 +36,7 @@
 		5D42FF252A4473D700B2F430 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */; };
 		5D42FF272A45A9E800B2F430 /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF262A45A9E800B2F430 /* CodableFeedStoreTests.swift */; };
 		5D42FF292A4C6BF400B2F430 /* CodableFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FF282A4C6BF300B2F430 /* CodableFeedStore.swift */; };
+		5D86AE112A4D91B500650083 /* FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D86AE102A4D91B500650083 /* FeedStoreSpecs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		5D42FF242A4473D700B2F430 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
 		5D42FF262A45A9E800B2F430 /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
 		5D42FF282A4C6BF300B2F430 /* CodableFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStore.swift; sourceTree = "<group>"; };
+		5D86AE102A4D91B500650083 /* FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpecs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 				5D42FF1B2A42FFF300B2F430 /* LoadFeedFromCacheUseCaseTests.swift */,
 				5D42FF202A44277B00B2F430 /* ValidateCacheUseCaseTests.swift */,
 				5D42FF262A45A9E800B2F430 /* CodableFeedStoreTests.swift */,
+				5D86AE102A4D91B500650083 /* FeedStoreSpecs.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				5D42FEBD2A23966500B2F430 /* SampleFeedTests.swift in Sources */,
 				5D42FEE82A2B2A1B00B2F430 /* URLSessionHTTPClientTests.swift in Sources */,
 				5D42FED02A2398EE00B2F430 /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,
+				5D86AE112A4D91B500650083 /* FeedStoreSpecs.swift in Sources */,
 				5D42FF1C2A42FFF300B2F430 /* LoadFeedFromCacheUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
