@@ -15,6 +15,10 @@ extension FeedStoreSpecs where Self: XCTestCase {
         expect(sut: sut, toRetrieve: .empty)
     }
 
+    func assertThatRetrieveHasNoSideEffectsOnEmptyCache(sut: FeedStore) {
+        expect(sut: sut, toRetrieveTwice: .empty)
+    }
+
     @discardableResult
      func insert(for sut: FeedStore, images: [LocalFeedImage], timestamp: Date) -> Error? {
         let exp = expectation(description: "wait for completion")
