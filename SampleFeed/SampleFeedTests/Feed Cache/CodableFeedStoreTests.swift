@@ -38,12 +38,8 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
 
     func test_retrieve_afterInsertingToEmptyCacheDeliversInsertedValues() {
        let sut = makeSUT()
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
 
-        insert(for: sut, images: images, timestamp: timestamp)
-
-        expect(sut: sut, toRetrieve: .found(FeedCache(images: images, timestamp: timestamp)))
+        assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on: sut)
   }
 
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
