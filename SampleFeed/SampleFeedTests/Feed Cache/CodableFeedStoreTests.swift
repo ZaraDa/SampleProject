@@ -26,7 +26,7 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
     func test_retrieve_deliversEmptyOnEmptyCache() {
        let sut = makeSUT()
 
-        expect(sut: sut, toRetrieve: .empty)
+      assertThatRetrieveDeliversEmptyOnEmptyCache(sut: sut)
   }
 
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {

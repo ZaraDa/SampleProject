@@ -10,6 +10,11 @@ import XCTest
 import SampleFeed
 
 extension FeedStoreSpecs where Self: XCTestCase {
+
+    func assertThatRetrieveDeliversEmptyOnEmptyCache(sut: FeedStore) {
+        expect(sut: sut, toRetrieve: .empty)
+    }
+
     @discardableResult
      func insert(for sut: FeedStore, images: [LocalFeedImage], timestamp: Date) -> Error? {
         let exp = expectation(description: "wait for completion")
