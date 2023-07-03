@@ -63,17 +63,7 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
     func test_insertOverridesPreviousInseredCache() {
         let sut = makeSUT()
 
-        let images1 = [uniqueItem, uniqueItem].toLocal()
-        let timestamp1 = Date()
-
-        insert(for: sut, images: images1, timestamp: timestamp1)
-
-        let images2 = [uniqueItem, uniqueItem].toLocal()
-        let timestamp2 = Date()
-
-        insert(for: sut, images: images2, timestamp: timestamp2)
-
-        expect(sut: sut, toRetrieve: .found(FeedCache(images: images2, timestamp: timestamp2)))
+        assertThatInsertOverridesPreviouslyInsertedCacheValues(on: sut)
     }
 
     func test_insertDeliversErrorOnInsertionError() {

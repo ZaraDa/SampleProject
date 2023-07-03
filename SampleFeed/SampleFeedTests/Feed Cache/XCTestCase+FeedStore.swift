@@ -49,6 +49,20 @@ extension FeedStoreSpecs where Self: XCTestCase {
         expect(sut: sut, toRetrieveTwice: .failure(anyNSError))
     }
 
+    func assertThatInsertOverridesPreviouslyInsertedCacheValues(on sut: FeedStore) {
+        let images1 = [uniqueItem, uniqueItem].toLocal()
+        let timestamp1 = Date()
+
+        insert(for: sut, images: images1, timestamp: timestamp1)
+
+        let images2 = [uniqueItem, uniqueItem].toLocal()
+        let timestamp2 = Date()
+
+        insert(for: sut, images: images2, timestamp: timestamp2)
+
+        expect(sut: sut, toRetrieve: .found(FeedCache(images: images2, timestamp: timestamp2)))
+    }
+
     @discardableResult
      func insert(for sut: FeedStore, images: [LocalFeedImage], timestamp: Date) -> Error? {
         let exp = expectation(description: "wait for completion")
