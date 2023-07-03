@@ -42,15 +42,21 @@ class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
     }
 
     func test_delete_hasNoSideEffectsOnEmptyCache() {
+       let sut = makeSUT()
 
+        assertDeleteHasNoSideEffectsOnEmptyCache(sut: sut)
     }
 
     func test_delete_NonEmptyCacheMakesItEmpty() {
+       let sut = makeSUT()
 
+       assertDeleteNonEmptyCacheLeavesItEmpty(sut: sut)
     }
 
     func test_storeSideEffectsrunSerially() {
+        let sut = makeSUT()
 
+        assertStoreSideEffectsRunSerially(sut: sut)
     }
 
     //  MARK: - helpers

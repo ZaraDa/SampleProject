@@ -10,6 +10,7 @@ import SampleFeed
 
 class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
 
+
     override func setUp() {
         super.setUp()
 
@@ -67,81 +68,35 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
     }
 
     func test_insertDeliversErrorOnInsertionError() {
-       let invalidStoreURL = URL(string: "invalid://store-url")!
-        let sut = makeSUT(storeURL: invalidStoreURL)
+         let invalidStoreURL = URL(string: "invalid://store-url")!
+         let sut = makeSUT(storeURL: invalidStoreURL)
 
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
-
-        let error = insert(for: sut, images: images, timestamp: timestamp)
-        XCTAssertNotNil(error)
+        assertInsertDeliversErrorOnInsertionError(sut: sut)
     }
 
     func test_hasNoSideEffectsInsertionError() {
-       let invalidStoreURL = URL(string: "invalid://store-url")!
+        let invalidStoreURL = URL(string: "invalid://store-url")!
         let sut = makeSUT(storeURL: invalidStoreURL)
 
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
-
-        insert(for: sut, images: images, timestamp: timestamp)
-
-        expect(sut: sut, toRetrieve: .empty)
+        assertHasNoSideEffectsOnInsertionError(sut: sut)
     }
 
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
 
-        let deletionError = delete(for: sut)
-        XCTAssertNil(deletionError, "Expected deletion to succeed")
-
-        expect(sut: sut, toRetrieve: .empty)
+        assertDeleteHasNoSideEffectsOnEmptyCache(sut: sut)
     }
 
     func test_delete_NonEmptyCacheMakesItEmpty() {
         let sut = makeSUT()
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
 
-        let insertionError = insert(for: sut, images: images, timestamp: timestamp)
-        XCTAssertNil(insertionError)
-
-
-        let deletionError = delete(for: sut)
-        XCTAssertNil(deletionError)
-
-        expect(sut: sut, toRetrieve: .empty)
+        assertDeleteNonEmptyCacheLeavesItEmpty(sut: sut)
     }
 
     func test_storeSideEffectsrunSerially() {
         let sut = makeSUT()
 
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
-
-        var completedOperationsOrder = [XCTestExpectation]()
-
-        let op1 = expectation(description: "Opration 1")
-        sut.insert(images, timestamp: timestamp) { _ in
-            completedOperationsOrder.append(op1)
-            op1.fulfill()
-        }
-
-        let op2 = expectation(description: "Operation 2")
-        sut.deleteCachedFeed { _ in
-            completedOperationsOrder.append(op2)
-            op2.fulfill()
-        }
-
-        let op3 = expectation(description: "Opration 3")
-        sut.insert(images, timestamp: timestamp) { _ in
-            completedOperationsOrder.append(op3)
-            op3.fulfill()
-        }
-
-        wait(for: [op1, op2, op3], timeout: 1.0)
-
-        XCTAssertEqual(completedOperationsOrder, [op1, op2, op3])
+        assertStoreSideEffectsRunSerially(sut: sut)
     }
 
     //MARK:  -- Helpers
