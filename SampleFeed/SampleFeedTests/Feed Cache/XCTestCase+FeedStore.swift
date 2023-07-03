@@ -28,6 +28,27 @@ extension FeedStoreSpecs where Self: XCTestCase {
         expect(sut: sut, toRetrieve: .found(FeedCache(images: images, timestamp: timestamp)))
     }
 
+    func assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(sut: FeedStore) {
+        let images = [uniqueItem, uniqueItem].toLocal()
+        let timestamp = Date()
+
+        insert(for: sut, images: images, timestamp: timestamp)
+
+        expect(sut: sut, toRetrieveTwice: .found(FeedCache(images: images, timestamp: timestamp)))
+    }
+
+    func assertThatRetrieveDeliversFailureOnRetrivalError(sut: FeedStore, testURL: URL) {
+        try! "invalid Data".write(to: testURL, atomically: false, encoding: .utf8)
+
+        expect(sut: sut, toRetrieve: .failure(anyNSError))
+    }
+
+    func assertThatRetrievHasNoSideEffectsOnRetrivalError(sut: FeedStore, testURL: URL) {
+        try! "invalid Data".write(to: testURL, atomically: false, encoding: .utf8)
+
+        expect(sut: sut, toRetrieveTwice: .failure(anyNSError))
+    }
+
     @discardableResult
      func insert(for sut: FeedStore, images: [LocalFeedImage], timestamp: Date) -> Error? {
         let exp = expectation(description: "wait for completion")

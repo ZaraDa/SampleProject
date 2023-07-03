@@ -44,28 +44,20 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpec {
 
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
         let sut = makeSUT()
-        let images = [uniqueItem, uniqueItem].toLocal()
-        let timestamp = Date()
 
-        insert(for: sut, images: images, timestamp: timestamp)
-
-        expect(sut: sut, toRetrieveTwice: .found(FeedCache(images: images, timestamp: timestamp)))
+        assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(sut: sut)
     }
 
     func test_retrieve_deliversFailureOnRetrivalError() {
         let sut = makeSUT()
 
-        try! "invalid Data".write(to: testSpecificStoreURL, atomically: false, encoding: .utf8)
-
-        expect(sut: sut, toRetrieve: .failure(anyNSError))
+        assertThatRetrieveDeliversFailureOnRetrivalError(sut: sut, testURL: testSpecificStoreURL)
     }
 
     func test_retrieve_HasNoSideEffectsOnRetrivalError() {
         let sut = makeSUT()
 
-        try! "invalid Data".write(to: testSpecificStoreURL, atomically: false, encoding: .utf8)
-
-        expect(sut: sut, toRetrieveTwice: .failure(anyNSError))
+        assertThatRetrievHasNoSideEffectsOnRetrivalError(sut: sut, testURL: testSpecificStoreURL)
     }
 
     func test_insertOverridesPreviousInseredCache() {
