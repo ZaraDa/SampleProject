@@ -26,9 +26,9 @@ final public class CoreDataFeedStore: FeedStore {
        perform { context in
                    do {
                        try ManagedFeedCache.find(in: context).map(context.delete).map(context.save)
-                       completion(nil)
+                       completion(.success(()))
                    } catch {
-                       completion(error)
+                       completion(.failure(error))
                    }
                }
     }
@@ -40,9 +40,9 @@ final public class CoreDataFeedStore: FeedStore {
                         managedCache.timestamp = timestamp
                         managedCache.feed = ManagedFeedItem.images(from: items, in: context)
                         try context.save()
-                        completion(nil)
+                        completion(.success(()))
                     } catch {
-                        completion(error)
+                        completion(.failure(error))
                     }
                 }
     }
