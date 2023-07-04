@@ -22,42 +22,33 @@ final public class CoreDataFeedStore: FeedStore {
         context = container.newBackgroundContext()
     }
 
-   public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-       perform { context in
-                   do {
-                       try ManagedFeedCache.find(in: context).map(context.delete).map(context.save)
-                       completion(.success(()))
-                   } catch {
-                       completion(.failure(error))
-                   }
-               }
+    public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
+        perform { context in
+            completion(Result(catching: {
+                try ManagedFeedCache.find(in: context).map(context.delete).map(context.save)
+            }))
+        }
     }
 
     public func insert(_ items: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
         perform { context in
-                    do {
-                        let managedCache = try ManagedFeedCache.newUniqueInstance(in: context)
-                        managedCache.timestamp = timestamp
-                        managedCache.feed = ManagedFeedItem.images(from: items, in: context)
-                        try context.save()
-                        completion(.success(()))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }
+
+            completion(Result(catching: {
+                let managedCache = try ManagedFeedCache.newUniqueInstance(in: context)
+                managedCache.timestamp = timestamp
+                managedCache.feed = ManagedFeedItem.images(from: items, in: context)
+                try context.save()
+            }))
+        }
     }
 
     public func retrieve(completion: @escaping RetrievalCompletion) {
         perform { context in
-            do {
-                if let cache = try ManagedFeedCache.find(in: context) {
-                    completion(.success(CachedFeed(feedCache: FeedCache(images: cache.localFeed, timestamp: cache.timestamp))))
-                } else {
-                    completion(.success(.none))
+            completion(Result {
+                try ManagedFeedCache.find(in: context).map {
+                   return CachedFeed(feedCache: FeedCache(images: $0.localFeed, timestamp: $0.timestamp))
                 }
-            } catch {
-                completion(.failure(error))
-            }
+            })
         }
     }
 
