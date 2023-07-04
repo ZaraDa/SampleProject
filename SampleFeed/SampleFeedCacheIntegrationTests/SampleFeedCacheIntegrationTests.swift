@@ -31,12 +31,7 @@ class SampleFeedCacheIntegrationTests: XCTestCase {
         let sutToPerformLoad = makeSUT()
         let feed = [uniqueItem, uniqueItem]
 
-        let saveEXP = expectation(description: "wait for save completion")
-        sutToPerformSave.save(feed) { saveError in
-            XCTAssertNil(saveError, "Expected to save feed successfully")
-            saveEXP.fulfill()
-        }
-        wait(for: [saveEXP], timeout: 1.0)
+        save(feed: feed, with: sutToPerformSave)
 
         expect(sut: sutToPerformLoad, toLoad: feed)
     }
@@ -48,19 +43,10 @@ class SampleFeedCacheIntegrationTests: XCTestCase {
         let firstFeed = [uniqueItem, uniqueItem]
         let lastFeed = [uniqueItem, uniqueItem]
 
-        let saveExp1 = expectation(description: "wait for save completion")
-        sutToPerformFirstSave.save(firstFeed) { saveError in
-            XCTAssertNil(saveError, "Expected to save feed successfully")
-            saveExp1.fulfill()
-        }
-        wait(for: [saveExp1], timeout: 1.0)
 
-        let saveExp2 = expectation(description: "wait for save completion")
-        sutToPerformLastSave.save(lastFeed) { saveError in
-            XCTAssertNil(saveError, "Expected to save feed successfully")
-            saveExp2.fulfill()
-        }
-        wait(for: [saveExp2], timeout: 1.0)
+        save(feed: firstFeed, with: sutToPerformFirstSave)
+
+        save(feed: lastFeed, with: sutToPerformLastSave)
 
         expect(sut: sutToPerformLoad, toLoad: lastFeed)
 
@@ -109,5 +95,14 @@ class SampleFeedCacheIntegrationTests: XCTestCase {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
+    }
+
+    private func save(feed: [FeedImage], with sut: LocalFeedLoader) {
+        let saveEXP = expectation(description: "wait for save completion")
+        sut.save(feed) { saveError in
+            XCTAssertNil(saveError, "Expected to save feed successfully")
+            saveEXP.fulfill()
+        }
+        wait(for: [saveEXP], timeout: 1.0)
     }
 }
