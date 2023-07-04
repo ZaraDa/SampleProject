@@ -18,15 +18,18 @@ public struct FeedCache {
 }
 
 
-public enum CachedFeed {
-    case empty
-    case found(FeedCache)
+public struct CachedFeed {
+    public let feedCache: FeedCache
+
+    public init(feedCache: FeedCache) {
+        self.feedCache = feedCache
+    }
 }
 
 
 public protocol FeedStore {
 
-    typealias RetrievalResult = Result<CachedFeed, Error>
+    typealias RetrievalResult = Result<CachedFeed?, Error>
 
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
