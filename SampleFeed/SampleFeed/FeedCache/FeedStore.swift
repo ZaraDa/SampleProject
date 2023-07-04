@@ -17,18 +17,20 @@ public struct FeedCache {
     }
 }
 
-public enum FeedRetrievalResult {
+
+public enum CachedFeed {
     case empty
     case found(FeedCache)
-    case failure(Error)
 }
 
 
 public protocol FeedStore {
 
+    typealias RetrievalResult = Result<CachedFeed, Error>
+
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
-    typealias RetrievalCompletion = (FeedRetrievalResult) -> Void
+    typealias RetrievalCompletion = (RetrievalResult) -> Void
 
 
     // The completion handler can be invoked in any thread.

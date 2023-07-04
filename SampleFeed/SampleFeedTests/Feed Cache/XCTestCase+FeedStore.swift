@@ -12,11 +12,11 @@ import SampleFeed
 extension FeedStoreSpecs where Self: XCTestCase {
 
     func assertThatRetrieveDeliversEmptyOnEmptyCache(sut: FeedStore) {
-        expect(sut: sut, toRetrieve: .empty)
+        expect(sut: sut, toRetrieve: .success(.empty))
     }
 
     func assertThatRetrieveHasNoSideEffectsOnEmptyCache(sut: FeedStore) {
-        expect(sut: sut, toRetrieveTwice: .empty)
+        expect(sut: sut, toRetrieveTwice: .success(.empty))
     }
 
     func assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on sut: FeedStore) {
@@ -25,7 +25,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
 
         insert(for: sut, images: images, timestamp: timestamp)
 
-        expect(sut: sut, toRetrieve: .found(FeedCache(images: images, timestamp: timestamp)))
+        expect(sut: sut, toRetrieve:.success(.found(FeedCache(images: images, timestamp: timestamp))))
     }
 
     func assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(sut: FeedStore) {
@@ -34,7 +34,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
 
         insert(for: sut, images: images, timestamp: timestamp)
 
-        expect(sut: sut, toRetrieveTwice: .found(FeedCache(images: images, timestamp: timestamp)))
+        expect(sut: sut, toRetrieveTwice: .success(.found(FeedCache(images: images, timestamp: timestamp))))
     }
 
     func assertThatRetrieveDeliversFailureOnRetrivalError(sut: FeedStore, testURL: URL) {
@@ -60,7 +60,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
 
         insert(for: sut, images: images2, timestamp: timestamp2)
 
-        expect(sut: sut, toRetrieve: .found(FeedCache(images: images2, timestamp: timestamp2)))
+        expect(sut: sut, toRetrieve: .success(.found(FeedCache(images: images2, timestamp: timestamp2))))
     }
 
     func assertInsertDeliversErrorOnInsertionError(sut: FeedStore) {
@@ -77,14 +77,14 @@ extension FeedStoreSpecs where Self: XCTestCase {
 
         insert(for: sut, images: images, timestamp: timestamp)
 
-        expect(sut: sut, toRetrieve: .empty)
+        expect(sut: sut, toRetrieve: .success(.empty))
     }
 
     func assertDeleteHasNoSideEffectsOnEmptyCache(sut: FeedStore) {
         let deletionError = delete(for: sut)
         XCTAssertNil(deletionError, "Expected deletion to succeed")
 
-        expect(sut: sut, toRetrieve: .empty)
+        expect(sut: sut, toRetrieve: .success(.empty))
     }
 
     func assertDeleteNonEmptyCacheLeavesItEmpty(sut: FeedStore) {
@@ -98,7 +98,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
         let deletionError = delete(for: sut)
         XCTAssertNil(deletionError)
 
-        expect(sut: sut, toRetrieve: .empty)
+        expect(sut: sut, toRetrieve: .success(.empty))
     }
 
     func assertStoreSideEffectsRunSerially(sut: FeedStore) {
@@ -159,16 +159,16 @@ extension FeedStoreSpecs where Self: XCTestCase {
         return deletionError
     }
 
-     func expect(sut: FeedStore, toRetrieve expectedResult: FeedRetrievalResult) {
+    func expect(sut: FeedStore, toRetrieve expectedResult: FeedStore.RetrievalResult) {
 
         let exp = expectation(description: "waiting for retrieval")
 
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.empty, .empty),
+            case (.success(.empty), .success(.empty)),
                 (.failure, .failure):
                 break
-            case let (.found(expectedCache), .found(retrievedCache)):
+            case let (.success(.found(expectedCache)), .success(.found(retrievedCache))):
                 XCTAssertEqual(expectedCache.images, retrievedCache.images)
                 XCTAssertEqual(expectedCache.timestamp, retrievedCache.timestamp)
             default:
@@ -180,7 +180,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
-     func expect(sut: FeedStore, toRetrieveTwice result: FeedRetrievalResult) {
+    func expect(sut: FeedStore, toRetrieveTwice result: FeedStore.RetrievalResult) {
         expect(sut: sut, toRetrieve: result)
         expect(sut: sut, toRetrieve: result)
     }
