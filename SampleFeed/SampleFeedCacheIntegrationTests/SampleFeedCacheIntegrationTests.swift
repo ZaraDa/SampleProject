@@ -10,6 +10,16 @@ import SampleFeed
 
 class SampleFeedCacheIntegrationTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        setUpEmptyStoreURL()
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        removeSideEffects()
+    }
+
     func test_load_delivers_NoItemsOnEmptyCache() {
         let sut = makeSUT()
 
@@ -26,6 +36,31 @@ class SampleFeedCacheIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+    func test_load_deliversItemsSavedOnASeparateInstance() {
+        let sutToPerformSave = makeSUT()
+        let sutToPerformLoad = makeSUT()
+        let feed = [uniqueItem, uniqueItem]
+
+        let saveEXP = expectation(description: "wait for save completion")
+        sutToPerformSave.save(feed) { saveError in
+            XCTAssertNil(saveError, "Expected to save feed successfully")
+            saveEXP.fulfill()
+        }
+        wait(for: [saveEXP], timeout: 1.0)
+
+        let loadExp = expectation(description: "wait for load completion")
+        sutToPerformLoad.load { result in
+            switch result {
+            case let .success(recievedImages):
+                XCTAssertEqual(recievedImages, feed)
+            case let .failure(error):
+                XCTFail("Expected successfully recieve images, got \(error)")
+            }
+            loadExp.fulfill()
+        }
+        wait(for: [loadExp], timeout: 1.0)
+    }
+
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> LocalFeedLoader {
         let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = testSpecificStoreURL
@@ -40,7 +75,20 @@ class SampleFeedCacheIntegrationTests: XCTestCase {
         cachesDirectory.appendingPathComponent("\(type(of: self)).store")
     }
 
-    var cachesDirectory: URL {
+    private var cachesDirectory: URL {
          FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    }
+
+    private func setUpEmptyStoreURL() {
+        deleteStoreArtifacts()
+
+    }
+
+    private func removeSideEffects() {
+        deleteStoreArtifacts()
+    }
+
+    private func deleteStoreArtifacts() {
+        try? FileManager.default.removeItem(at: testSpecificStoreURL)
     }
 }
