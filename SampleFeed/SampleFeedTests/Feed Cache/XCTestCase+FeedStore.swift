@@ -151,7 +151,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
         let exp = expectation(description: "wait for completion")
         sut.deleteCachedFeed { recievedError in
             deletionError = recievedError
-            XCTAssertNil(recievedError, "Expected to successfully delete empty cache")
+            XCTAssertNil(recievedError, "Expected to successfully delete cache")
             exp.fulfill()
         }
 
