@@ -25,7 +25,7 @@ public struct CachedFeed {
         self.feedCache = feedCache
     }
 }
-
+      
 
 public protocol FeedStore {
 
