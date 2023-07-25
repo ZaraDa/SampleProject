@@ -3,21 +3,33 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--My Feed-->
         <scene sceneID="mNA-ce-444">
             <objects>
-                <tableViewController id="bI3-00-6Iq" sceneMemberID="viewController">
+                <tableViewController id="bI3-00-6Iq" customClass="FeedViewController" customModule="Prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="qD9-3C-yeN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="BAd-g7-nIL">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="luc-o6-yYs">
+                            <rect key="frame" x="0.0" y="672" width="414" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <viewLayoutGuide key="safeArea" id="6ei-w9-ur7"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="589" id="cF5-ts-I3k">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="589"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="589" id="cF5-ts-I3k">
+                                <rect key="frame" x="0.0" y="60.5" width="414" height="589"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cF5-ts-I3k" id="0Id-U5-daU">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="589"/>
@@ -34,11 +46,16 @@
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="A4k-aT-ngb">
                                                                     <rect key="frame" x="0.0" y="8" width="18" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="040-W0-TpD"/>
+                                                                        <constraint firstAttribute="width" constant="18" id="j9W-E7-H2u"/>
+                                                                    </constraints>
                                                                 </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="A4k-aT-ngb" firstAttribute="leading" secondItem="jxm-LK-0Va" secondAttribute="leading" id="6pT-Ky-7Nq"/>
+                                                                <constraint firstItem="A4k-aT-ngb" firstAttribute="width" secondItem="jxm-LK-0Va" secondAttribute="width" multiplier="1.24138" id="H49-Uq-mkY"/>
                                                                 <constraint firstItem="A4k-aT-ngb" firstAttribute="top" secondItem="jxm-LK-0Va" secondAttribute="top" constant="8" id="bZ9-KF-gMG"/>
                                                             </constraints>
                                                         </view>
@@ -58,11 +75,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="Mib-Cr-dvw" secondAttribute="height" multiplier="1:1" id="QXD-B0-b38"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="22"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -72,6 +84,11 @@
                                                         <constraint firstAttribute="trailing" secondItem="Mib-Cr-dvw" secondAttribute="trailing" id="uKs-QR-2im"/>
                                                         <constraint firstItem="Mib-Cr-dvw" firstAttribute="leading" secondItem="FAy-Fe-HQt" secondAttribute="leading" id="wfL-k9-LS3"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocI-Jh-7EA">
                                                     <rect key="frame" x="0.0" y="444" width="374" height="111"/>
@@ -100,7 +117,7 @@
                             <outlet property="delegate" destination="bI3-00-6Iq" id="6ef-Gg-ax7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="K4k-RU-85W"/>
+                    <navigationItem key="navigationItem" title="My Feed" id="K4k-RU-85W"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q05-Du-mf1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
