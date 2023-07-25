@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  SampleProject
+//  Prototype
 //
-//  Created by Zara Davtian on 26.05.23.
+//  Created by Zara Davtian on 25.07.23.
 //
 
 import UIKit
