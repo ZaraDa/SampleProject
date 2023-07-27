@@ -128,3 +128,5 @@ extension FeedImageCell {
         fadeIn(UIImage(named: model.imageName))
     }
 }
+
+
