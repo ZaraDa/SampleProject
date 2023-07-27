@@ -20,6 +20,7 @@
 		5D0ACAAF2A6FD706003AB71B /* SampleFeediOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D0ACAA12A6FD705003AB71B /* SampleFeediOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D0ACAB82A72B34C003AB71B /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0ACAB62A72B34C003AB71B /* FeedViewControllerTests.swift */; };
 		5D0ACAB92A72C504003AB71B /* SampleFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D42FEAD2A23966500B2F430 /* SampleFeed.framework */; };
+		5D0ACABB2A72C6A6003AB71B /* XCTTestMemoryLeakTrackingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEEA2A2F33DA00B2F430 /* XCTTestMemoryLeakTrackingHelper.swift */; };
 		5D42FEB22A23966500B2F430 /* SampleFeed.docc in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEB12A23966500B2F430 /* SampleFeed.docc */; };
 		5D42FEB82A23966500B2F430 /* SampleFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D42FEAD2A23966500B2F430 /* SampleFeed.framework */; };
 		5D42FEBD2A23966500B2F430 /* SampleFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEBC2A23966500B2F430 /* SampleFeedTests.swift */; };
@@ -617,6 +618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D0ACAB82A72B34C003AB71B /* FeedViewControllerTests.swift in Sources */,
+				5D0ACABB2A72C6A6003AB71B /* XCTTestMemoryLeakTrackingHelper.swift in Sources */,
 				5D0ACAAE2A6FD706003AB71B /* SampleFeediOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
