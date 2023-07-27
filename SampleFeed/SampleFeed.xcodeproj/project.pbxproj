@@ -18,6 +18,7 @@
 		5D0ACAA92A6FD706003AB71B /* SampleFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0ACA9F2A6FD705003AB71B /* SampleFeediOS.framework */; };
 		5D0ACAAE2A6FD706003AB71B /* SampleFeediOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0ACAAD2A6FD706003AB71B /* SampleFeediOSTests.swift */; };
 		5D0ACAAF2A6FD706003AB71B /* SampleFeediOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D0ACAA12A6FD705003AB71B /* SampleFeediOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D0ACAB82A72B34C003AB71B /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0ACAB62A72B34C003AB71B /* FeedViewControllerTests.swift */; };
 		5D42FEB22A23966500B2F430 /* SampleFeed.docc in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEB12A23966500B2F430 /* SampleFeed.docc */; };
 		5D42FEB82A23966500B2F430 /* SampleFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D42FEAD2A23966500B2F430 /* SampleFeed.framework */; };
 		5D42FEBD2A23966500B2F430 /* SampleFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D42FEBC2A23966500B2F430 /* SampleFeedTests.swift */; };
@@ -96,6 +97,7 @@
 		5D0ACAA22A6FD705003AB71B /* SampleFeediOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SampleFeediOS.docc; sourceTree = "<group>"; };
 		5D0ACAA82A6FD706003AB71B /* SampleFeediOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleFeediOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0ACAAD2A6FD706003AB71B /* SampleFeediOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleFeediOSTests.swift; sourceTree = "<group>"; };
+		5D0ACAB62A72B34C003AB71B /* FeedViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerTests.swift; sourceTree = "<group>"; };
 		5D42FEAD2A23966500B2F430 /* SampleFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SampleFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D42FEB02A23966500B2F430 /* SampleFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleFeed.h; sourceTree = "<group>"; };
 		5D42FEB12A23966500B2F430 /* SampleFeed.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SampleFeed.docc; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				5D0ACAAD2A6FD706003AB71B /* SampleFeediOSTests.swift */,
+				5D0ACAB62A72B34C003AB71B /* FeedViewControllerTests.swift */,
 			);
 			path = SampleFeediOSTests;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D0ACAB82A72B34C003AB71B /* FeedViewControllerTests.swift in Sources */,
 				5D0ACAAE2A6FD706003AB71B /* SampleFeediOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
