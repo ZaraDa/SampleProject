@@ -29,12 +29,15 @@ final public class FeedViewController: UITableViewController {
 
     @objc private func load() {
         refreshControl?.beginRefreshing()
-            loader?.load {[weak self] result in
-                self?.tableModel = (try? result.get()) ?? []
+        loader?.load {[weak self] result in
+
+            if let feed = try? result.get() {
+                self?.tableModel = feed
                 self?.tableView.reloadData()
-                self?.refreshControl?.endRefreshing()
             }
+            self?.refreshControl?.endRefreshing()
         }
+    }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableModel.count

@@ -33,13 +33,13 @@ class FeedViewControllerTests: XCTestCase {
 
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
         loader.completeFeedLoading(at: 0)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
 
         sut.simulateUserInitiatedFeedReload()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
 
-        loader.completeFeedLoading(at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
+        loader.completeFeedLoadingWithError(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading copletes with error")
     }
 
     func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
@@ -64,6 +64,19 @@ class FeedViewControllerTests: XCTestCase {
         assertThat(sut, hasViewConfiguredFor: image1, at: 1)
         assertThat(sut, hasViewConfiguredFor: image2, at: 2)
         assertThat(sut, hasViewConfiguredFor: image3, at: 3)
+    }
+
+    func test_loadFeedCompletion_doesNotAlterCurrentRenderingStateOnError() {
+        let image0 = makeImage()
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0], at: 0)
+        assertThat(sut, isRendering: [image0])
+
+        sut.simulateUserInitiatedFeedReload()
+        loader.completeFeedLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [image0])
     }
 
 
@@ -117,6 +130,11 @@ class FeedViewControllerTests: XCTestCase {
 
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int) {
             completions[index](.success(feed))
+        }
+
+        func completeFeedLoadingWithError(at index: Int = 0) {
+            let error = NSError(domain: "an error", code: 0)
+            completions[index](.failure(error))
         }
 
     }
