@@ -222,8 +222,7 @@
 			children = (
 				5D0ACAA12A6FD705003AB71B /* SampleFeediOS.h */,
 				5D0ACAA22A6FD705003AB71B /* SampleFeediOS.docc */,
-				5D0ACACC2A7909FB003AB71B /* Controllers */,
-				5D0ACACD2A790A0A003AB71B /* Views */,
+				5D0ACAD82A790E27003AB71B /* FeedUI */,
 			);
 			path = SampleFeediOS;
 			sourceTree = "<group>";
@@ -232,7 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				5D0ACAAD2A6FD706003AB71B /* SampleFeediOSTests.swift */,
-				5D0ACACE2A790A39003AB71B /* Controllers */,
+				5D0ACAD92A790E45003AB71B /* FeedUI */,
 				5D0ACAC42A790738003AB71B /* Helpers */,
 			);
 			path = SampleFeediOSTests;
@@ -284,6 +283,23 @@
 				5D0ACAB62A72B34C003AB71B /* FeedViewControllerTests.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5D0ACAD82A790E27003AB71B /* FeedUI */ = {
+			isa = PBXGroup;
+			children = (
+				5D0ACACC2A7909FB003AB71B /* Controllers */,
+				5D0ACACD2A790A0A003AB71B /* Views */,
+			);
+			path = FeedUI;
+			sourceTree = "<group>";
+		};
+		5D0ACAD92A790E45003AB71B /* FeedUI */ = {
+			isa = PBXGroup;
+			children = (
+				5D0ACACE2A790A39003AB71B /* Controllers */,
+			);
+			path = FeedUI;
 			sourceTree = "<group>";
 		};
 		5D42FEA32A23966500B2F430 = {
