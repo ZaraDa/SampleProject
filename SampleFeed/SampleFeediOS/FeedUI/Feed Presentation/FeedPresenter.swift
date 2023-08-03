@@ -21,12 +21,13 @@ final class FeedPresenter {
 
     private let feedLoader: FeedLoader
 
+    var loadingView: FeedLoadingView?
+
     init(feedLoader: FeedLoader) {
         self.feedLoader = feedLoader
     }
 
     var feedView: FeedView?
-    weak var loadingView: FeedLoadingView?
 
     func loadFeed() {
         loadingView?.display(isLoading: true)
