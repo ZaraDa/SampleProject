@@ -302,7 +302,7 @@
 		5D0ACAD82A790E27003AB71B /* FeedUI */ = {
 			isa = PBXGroup;
 			children = (
-				5D0ACAE42A793B83003AB71B /* Models */,
+				5D0ACAE42A793B83003AB71B /* Feed Presentation */,
 				5D0ACAE12A791807003AB71B /* Composers */,
 				5D0ACADA2A790ED7003AB71B /* Feed Image Loader */,
 				5D0ACACC2A7909FB003AB71B /* Controllers */,
@@ -335,13 +335,13 @@
 			path = Composers;
 			sourceTree = "<group>";
 		};
-		5D0ACAE42A793B83003AB71B /* Models */ = {
+		5D0ACAE42A793B83003AB71B /* Feed Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				5D0ACAE52A793BAD003AB71B /* FeedViewModel.swift */,
 				5D0ACAE72A793F6C003AB71B /* FeedImageViewModel.swift */,
 			);
-			path = Models;
+			path = "Feed Presentation";
 			sourceTree = "<group>";
 		};
 		5D42FEA32A23966500B2F430 = {
