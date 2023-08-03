@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import SampleFeed
 
 final class FeedImageViewModel<Image> {
@@ -26,8 +25,6 @@ final class FeedImageViewModel<Image> {
     var description: String? {
         return model.description
     }
-
-
 
     var location: String?  {
         return model.location

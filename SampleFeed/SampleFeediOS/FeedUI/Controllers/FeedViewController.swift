@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SampleFeed
 
 final public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
     var imageLoader: FeedImageDataLoader?
