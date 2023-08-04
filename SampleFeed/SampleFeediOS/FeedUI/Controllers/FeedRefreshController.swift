@@ -22,7 +22,6 @@ final class FeedRefreshViewController: NSObject, FeedLoadingView {
         self.delegate = delegate
     }
 
-
     @objc func refresh() {
         delegate.didRequestFeedRefresh()
     }
