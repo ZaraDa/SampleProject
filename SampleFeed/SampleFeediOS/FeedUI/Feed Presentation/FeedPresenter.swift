@@ -25,25 +25,21 @@ struct FeedModel {
 }
 
 final class FeedPresenter {
-    typealias Observer<T> = (T) -> Void
-
-    private let feedLoader: FeedLoader
 
     var loadingView: FeedLoadingView?
-
-    init(feedLoader: FeedLoader) {
-        self.feedLoader = feedLoader
-    }
-
     var feedView: FeedView?
 
-    func loadFeed() {
+    func didStartLoadingFeed() {
         loadingView?.display(FeedLoadingViewModel(isLoading: true))
-        feedLoader.load { [weak self] result in
-            if let feed = try? result.get() {
-                self?.feedView?.display(FeedModel(feed: feed))
-            }
-            self?.loadingView?.display(FeedLoadingViewModel(isLoading: false))
-        }
+    }
+
+    func didFinishLoadingFeed(with feed: [FeedImage]) {
+        feedView?.display(FeedModel(feed: feed))
+        loadingView?.display(FeedLoadingViewModel(isLoading: false))
+    }
+
+    func didFinishLoadingFeed(with error: Error) {
+        loadingView?.display(FeedLoadingViewModel(isLoading: false))
     }
 }
+
